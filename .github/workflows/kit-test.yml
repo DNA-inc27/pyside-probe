@@ -7,13 +7,16 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Run build.bat end-to-end
         shell: cmd
         run: dist-kit\build.bat
       - name: Show tail of build.log
         if: always()
         shell: pwsh
-        run: Get-Content dist-kit/build.log -Tail 20
+        run: Get-Content dist-kit/build.log -Tail 25
       - uses: actions/upload-artifact@v4
         if: always()
         with:
